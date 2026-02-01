@@ -17,14 +17,14 @@
     h1 {
       color: white;
       text-align: center;
-      margin: 50px 20px 20px;
+      margin: 40px 20px 10px;
       font-size: 3rem;
     }
 
     .container {
       position: relative;
       width: 100%;
-      height: calc(100vh - 150px);
+      height: calc(100vh - 140px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -42,6 +42,7 @@
       background-color: #ff4d6d;
       color: white;
       z-index: 2;
+      margin-right: 40px;
     }
 
     .no {
@@ -64,12 +65,21 @@
     const noBtn = document.getElementById("noBtn");
     const container = document.getElementById("container");
 
-    function moveNoButton() {
-      const containerRect = container.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
+    // Place the No button in the center on load
+    function centerNoButton() {
+      const cRect = container.getBoundingClientRect();
+      const bRect = noBtn.getBoundingClientRect();
 
-      const maxX = containerRect.width - btnRect.width;
-      const maxY = containerRect.height - btnRect.height;
+      noBtn.style.left = (cRect.width / 2 - bRect.width / 2 + 80) + "px";
+      noBtn.style.top = (cRect.height / 2 - bRect.height / 2) + "px";
+    }
+
+    function moveNoButton() {
+      const cRect = container.getBoundingClientRect();
+      const bRect = noBtn.getBoundingClientRect();
+
+      const maxX = cRect.width - bRect.width;
+      const maxY = cRect.height - bRect.height;
 
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
@@ -79,17 +89,17 @@
     }
 
     document.addEventListener("mousemove", (e) => {
-      const btnRect = noBtn.getBoundingClientRect();
+      const bRect = noBtn.getBoundingClientRect();
 
-      const btnCenterX = btnRect.left + btnRect.width / 2;
-      const btnCenterY = btnRect.top + btnRect.height / 2;
+      const btnCenterX = bRect.left + bRect.width / 2;
+      const btnCenterY = bRect.top + bRect.height / 2;
 
       const distance = Math.hypot(
         e.clientX - btnCenterX,
         e.clientY - btnCenterY
       );
 
-      if (distance < 150) {
+      if (distance < 140) {
         moveNoButton();
       }
     });
@@ -97,6 +107,10 @@
     function yesClicked() {
       alert("YAYYYY 💕🥰 I knew it!");
     }
+
+    // Ensure correct placement after page loads
+    window.onload = centerNoButton;
+    window.onresize = centerNoButton;
   </script>
 
 </body>
