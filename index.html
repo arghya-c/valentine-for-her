@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Be My Valentine 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
-      height: 100vh;
       margin: 0;
+      height: 100vh;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: Arial, sans-serif;
       overflow: hidden;
@@ -19,14 +21,13 @@
       font-size: 3rem;
     }
 
-    .buttons {
+    .container {
       position: relative;
       width: 100%;
       height: 60vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 40px;
     }
 
     button {
@@ -35,12 +36,13 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.15s;
     }
 
     .yes {
       background-color: #ff4d6d;
       color: white;
+      z-index: 1;
     }
 
     .no {
@@ -53,7 +55,7 @@
 
   <h1>Will you be my Valentine? 💖</h1>
 
-  <div class="buttons">
+  <div class="container">
     <button class="yes" onclick="yesClicked()">Yes</button>
     <button class="no" id="noBtn">No</button>
   </div>
@@ -61,15 +63,31 @@
   <script>
     const noBtn = document.getElementById("noBtn");
 
-    noBtn.addEventListener("mouseover", () => {
-      const maxX = window.innerWidth - noBtn.offsetWidth;
-      const maxY = window.innerHeight - noBtn.offsetHeight;
+    function moveNoButton() {
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
 
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      const rect = noBtn.getBoundingClientRect();
+      const btnX = rect.left + rect.width / 2;
+      const btnY = rect.top + rect.height / 2;
+
+      const distance = Math.hypot(
+        e.clientX - btnX,
+        e.clientY - btnY
+      );
+
+      if (distance < 150) {
+        moveNoButton();
+      }
     });
 
     function yesClicked() {
