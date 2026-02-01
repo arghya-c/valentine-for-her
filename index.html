@@ -12,26 +12,39 @@
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: Arial, sans-serif;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     h1 {
       color: white;
       text-align: center;
-      margin: 40px 20px 10px;
-      font-size: 3rem;
+      margin: 30px 20px 10px;
+      font-size: 2.8rem;
+    }
+
+    .photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      margin-bottom: 15px;
     }
 
     .container {
       position: relative;
       width: 100%;
-      height: calc(100vh - 140px);
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     button {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       padding: 15px 30px;
       border: none;
       border-radius: 12px;
@@ -56,6 +69,8 @@
 
   <h1>Will you be my Valentine? 💖</h1>
 
+  <img src="photo.jpg" alt="Us 💕" class="photo">
+
   <div class="container" id="container">
     <button class="yes" onclick="yesClicked()">Yes</button>
     <button class="no" id="noBtn">No</button>
@@ -65,7 +80,6 @@
     const noBtn = document.getElementById("noBtn");
     const container = document.getElementById("container");
 
-    // Place the No button in the center on load
     function centerNoButton() {
       const cRect = container.getBoundingClientRect();
       const bRect = noBtn.getBoundingClientRect();
@@ -90,7 +104,6 @@
 
     document.addEventListener("mousemove", (e) => {
       const bRect = noBtn.getBoundingClientRect();
-
       const btnCenterX = bRect.left + bRect.width / 2;
       const btnCenterY = bRect.top + bRect.height / 2;
 
@@ -108,7 +121,6 @@
       alert("YAYYYY 💕🥰 I knew it!");
     }
 
-    // Ensure correct placement after page loads
     window.onload = centerNoButton;
     window.onresize = centerNoButton;
   </script>
