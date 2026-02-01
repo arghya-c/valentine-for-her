@@ -17,14 +17,14 @@
     h1 {
       color: white;
       text-align: center;
-      margin-top: 60px;
+      margin: 50px 20px 20px;
       font-size: 3rem;
     }
 
     .container {
       position: relative;
       width: 100%;
-      height: 60vh;
+      height: calc(100vh - 150px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -36,18 +36,18 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: 0.15s;
     }
 
     .yes {
       background-color: #ff4d6d;
       color: white;
-      z-index: 1;
+      z-index: 2;
     }
 
     .no {
       background-color: white;
       position: absolute;
+      z-index: 1;
     }
   </style>
 </head>
@@ -55,18 +55,21 @@
 
   <h1>Will you be my Valentine? 💖</h1>
 
-  <div class="container">
+  <div class="container" id="container">
     <button class="yes" onclick="yesClicked()">Yes</button>
     <button class="no" id="noBtn">No</button>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
+    const container = document.getElementById("container");
 
     function moveNoButton() {
-      const padding = 20;
-      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = containerRect.width - btnRect.width;
+      const maxY = containerRect.height - btnRect.height;
 
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
@@ -76,13 +79,14 @@
     }
 
     document.addEventListener("mousemove", (e) => {
-      const rect = noBtn.getBoundingClientRect();
-      const btnX = rect.left + rect.width / 2;
-      const btnY = rect.top + rect.height / 2;
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const btnCenterY = btnRect.top + btnRect.height / 2;
 
       const distance = Math.hypot(
-        e.clientX - btnX,
-        e.clientY - btnY
+        e.clientX - btnCenterX,
+        e.clientY - btnCenterY
       );
 
       if (distance < 150) {
