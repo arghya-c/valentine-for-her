@@ -24,14 +24,11 @@
       font-size: 2.8rem;
     }
 
-    .photo {
-      width: 220px;
-      height: 220px;
-      border-radius: 20px;
-      object-fit: cover;
-      border: 5px solid white;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      margin-bottom: 15px;
+    p {
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 5px 20px 20px;
     }
 
     .container {
@@ -68,8 +65,7 @@
 <body>
 
   <h1>Will you be my Valentine? 💖</h1>
-
-  <img src="photo.jpg" alt="Us 💕" class="photo">
+  <p>I know you’re shy to ask, so I’m asking you 💌</p>
 
   <div class="container" id="container">
     <button class="yes" onclick="yesClicked()">Yes</button>
@@ -83,7 +79,6 @@
     function centerNoButton() {
       const cRect = container.getBoundingClientRect();
       const bRect = noBtn.getBoundingClientRect();
-
       noBtn.style.left = (cRect.width / 2 - bRect.width / 2 + 80) + "px";
       noBtn.style.top = (cRect.height / 2 - bRect.height / 2) + "px";
     }
@@ -91,13 +86,10 @@
     function moveNoButton() {
       const cRect = container.getBoundingClientRect();
       const bRect = noBtn.getBoundingClientRect();
-
       const maxX = cRect.width - bRect.width;
       const maxY = cRect.height - bRect.height;
-
       const x = Math.random() * maxX;
       const y = Math.random() * maxY;
-
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     }
@@ -106,19 +98,15 @@
       const bRect = noBtn.getBoundingClientRect();
       const btnCenterX = bRect.left + bRect.width / 2;
       const btnCenterY = bRect.top + bRect.height / 2;
-
-      const distance = Math.hypot(
-        e.clientX - btnCenterX,
-        e.clientY - btnCenterY
-      );
-
+      const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
       if (distance < 140) {
         moveNoButton();
       }
     });
 
     function yesClicked() {
-      alert("YAYYYY 💕🥰 I knew it!");
+      // Redirect to the new page
+      window.location.href = "yes.html";
     }
 
     window.onload = centerNoButton;
