@@ -6,32 +6,46 @@
   <style>
     body {
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      margin: 0;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: Arial, sans-serif;
-      text-align: center;
+      overflow: hidden;
     }
+
     h1 {
       color: white;
+      text-align: center;
+      margin-top: 60px;
       font-size: 3rem;
     }
+
+    .buttons {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+
     button {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       padding: 15px 30px;
-      margin: 15px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
+      transition: 0.2s;
     }
+
     .yes {
-      background: #ff4d6d;
+      background-color: #ff4d6d;
       color: white;
     }
+
     .no {
-      background: white;
+      background-color: white;
+      position: absolute;
     }
   </style>
 </head>
@@ -39,8 +53,29 @@
 
   <h1>Will you be my Valentine? 💖</h1>
 
-  <button class="yes" onclick="alert('YAYYY 💕🥰')">Yes</button>
-  <button class="no" onclick="alert('Nice try 😤💘')">No</button>
+  <div class="buttons">
+    <button class="yes" onclick="yesClicked()">Yes</button>
+    <button class="no" id="noBtn">No</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    function yesClicked() {
+      alert("YAYYYY 💕🥰 I knew it!");
+    }
+  </script>
 
 </body>
 </html>
