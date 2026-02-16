@@ -16,6 +16,7 @@
             height: 100vh;
             text-align: center;
             color: #ffffff;
+            overflow: hidden;
         }
         .container {
             background-color: rgba(0, 0, 0, 0.4);
@@ -23,6 +24,11 @@
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             max-width: 500px;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+        .fade-out {
+            opacity: 0;
         }
         h1 {
             font-size: 2em;
@@ -35,6 +41,12 @@
         .heart {
             font-size: 3em;
             margin-bottom: 20px;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -50,22 +62,33 @@
     <script>
         let typed = "";
         const secret = "iamjill";
+        let triggered = false;
 
         document.addEventListener("keydown", function(e) {
+            if (triggered) return;
+
             typed += e.key.toLowerCase();
 
-            // Keep only the last characters matching secret length
             if (typed.length > secret.length) {
                 typed = typed.slice(-secret.length);
             }
 
             if (typed === secret) {
-                document.getElementById("mainPage").innerHTML = `
-                    <div class="heart">💖</div>
-                    <h1>Hi Jill!</h1>
-                    <p>Thanks for being my Valentine.</p>
-                    <p>Hope you had fun! 😊</p>
-                `;
+                triggered = true;
+
+                const container = document.getElementById("mainPage");
+                container.classList.add("fade-out");
+
+                setTimeout(() => {
+                    container.innerHTML = `
+                        <div class="heart">💖</div>
+                        <h1>Hi Jill!</h1>
+                        <p>Thanks for being my Valentine.</p>
+                        <p>Hope you had fun! 😊</p>
+                        <img src="jill.jpeg" alt="Jill Image">
+                    `;
+                    container.classList.remove("fade-out");
+                }, 800);
             }
         });
     </script>
