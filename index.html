@@ -22,6 +22,7 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
         }
         h1 {
             font-size: 2em;
@@ -35,15 +36,48 @@
             font-size: 3em;
             margin-bottom: 20px;
         }
+        input {
+            margin-top: 20px;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="mainPage">
         <div class="heart">❤️</div>
         <h1>Valentine's Day Has Ended</h1>
         <p>Sorry, but Valentine's Day is over.</p>
         <p>The user is kindly requested to wait patiently until next year's Valentine's Day.</p>
         <p>Thank you for your understanding!</p>
+
+        <input type="text" id="secretInput" placeholder="Enter code">
+        <br>
+        <button onclick="checkCode()">Submit</button>
     </div>
+
+    <script>
+        function checkCode() {
+            const input = document.getElementById("secretInput").value;
+            if (input === "iamjill") {
+                document.getElementById("mainPage").innerHTML = `
+                    <div class="heart">💖</div>
+                    <h1>Hi Jill!</h1>
+                    <p>Thanks for being my Valentine.</p>
+                    <p>Hope you had fun! 😊</p>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>
